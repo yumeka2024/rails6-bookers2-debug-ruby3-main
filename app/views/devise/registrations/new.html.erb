@@ -10,7 +10,7 @@
         </div>
         <div class="field">
           <%= f.label :email %><br />
-          <%= f.email_field :email, autofocus: true, class: "email" %>
+          <%= f.email_field :email, class: "email" %>
         </div>
         <div class="field">
           <%= f.label :password %>
@@ -24,7 +24,7 @@
           <%= f.password_field :password_confirmation, autocomplete: "off", class: "password_confirm" %>
         </div>
         <div class="actions">
-          <%= f.submit "Sign up" ,class: 'btn btn-sm btn-success' %>
+          <%= f.submit "Sign up", class: 'btn btn-sm btn-success' %>
         </div>
       <% end %>
       <%= render "devise/shared/links" %>
