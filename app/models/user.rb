@@ -10,8 +10,6 @@ class User < ApplicationRecord
 
   validates :name, length: { minimum: 2, maximum: 20 }, uniqueness: true
 
-  
-  
   def get_profile_image
     (profile_image.attached?) ? profile_image : 'no_image.jpg'
 #    unless profile_image.attached?
@@ -19,5 +17,5 @@ class User < ApplicationRecord
 #      profile_image.attach(io: File.open(file_path), filename: 'no_image.jpg', content_type: 'image/jpeg')
 #    end
   end
-  
+
 end
