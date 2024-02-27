@@ -1,3 +1,9 @@
+<div class="container px-5 px-sm-0">
+  <div id="error_explanation">
+    <%= render 'layouts/errors', obj: @book %>
+  </div>
+</div>
+
 <h2>User info</h2>
 <%= render 'info', user: current_user %>
 
