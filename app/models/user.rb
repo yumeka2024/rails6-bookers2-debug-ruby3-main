@@ -34,7 +34,7 @@ class User < ApplicationRecord
   end
 
   def following?(user)
-    followed_tables.include?(user)
+    followed_relationships.exists?(followed_id: user.id)
   end
 
   # プロフィール画像を取得するメソッド
