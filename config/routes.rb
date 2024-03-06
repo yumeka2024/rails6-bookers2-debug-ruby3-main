@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
-  get 'relationships/follower'
-  get 'relationships/followed'
+  
+  # get 'searches/search'
+  # get 'relationships/follower'
+  # get 'relationships/followed'
+  
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   devise_for :users
 
@@ -23,6 +26,8 @@ Rails.application.routes.draw do
   	get "followings" => "relationships#followings", as: "followings"
   	get "followers" => "relationships#followers", as: "followers"
   end
+  
+  get "/search", to: "searches#search"
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
