@@ -9,15 +9,42 @@ class User < ApplicationRecord
   has_many :favorites, dependent: :destroy
   has_many :book_comments, dependent: :destroy
 
+  # フォローしている関連付け
+  has_many :active_relationships, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
+
+  # フォローされている関連付け
+  has_many :passive_relationships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
+
+  # フォローしているユーザーを取得
+  has_many :followings, through: :active_relationships, source: :followed
+
+  # フォロワーを取得
+  has_many :followers, through: :passive_relationships, source: :follower
+
+  # 指定したユーザーをフォローする
+  def follow(user)
+    active_relationships.create(followed_id: user.id)
+  end
+
+  # 指定したユーザーのフォローを解除する
+  def unfollow(user)
+    active_relationships.find_by(followed_id: user.id).destroy
+  end
+
+  # 指定したユーザーをフォローしているかどうかを判定
+  # def following?(user)
+  #   followings.include?(user)
+  # end
+
   # フォロー機能
   # アソシエーションの仕組み
   # 中間テーブルと結ぶ（中間テーブルの中身は"Relationship"モデルの"follower_id"キー）
   # 架空テーブルと結び、そこから中間テーブルを介して、userのテーブルであるfollowerと繋げる
-  has_many :follower_relationships, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
-  has_many :follower_tables, through: :follower_relationships, source: :follower
+  # has_many :follower_relationships, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
+  # has_many :follower_tables, through: :follower_relationships, source: :follower
 
-  has_many :followed_relationships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
-  has_many :followed_tables, through: :followed_relationships, source: :followed
+  # has_many :followed_relationships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
+  # has_many :followed_tables, through: :followed_relationships, source: :followed
 
   has_one_attached :profile_image
 
@@ -25,16 +52,16 @@ class User < ApplicationRecord
   validates :introduction, length: { maximum: 50 }
 
   # フォロー機能関連メソッド
-  def follow(user)
-    follower_relationships.create(followed_id: user.id)
-  end
+  # def follow(user)
+  #   follower_relationships.create(followed_id: user.id)
+  # end
 
-  def unfollow(user)
-    follower_relationships.find_by(followed_id: user.id).destroy
-  end
+  # def unfollow(user)
+  #   follower_relationships.find_by(followed_id: user.id).destroy
+  # end
 
   def following?(user)
-    followed_relationships.exists?(followed_id: user.id)
+    active_relationships.exists?(followed_id: user.id)
   end
 
   # プロフィール画像を取得するメソッド
