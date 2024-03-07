@@ -14,7 +14,7 @@ class BookCommentsController < ApplicationController
     @book = Book.find(params[:book_id])
     @comment = BookComment.find(params[:id])
     @comment.destroy
-    # redirect_to book_path(book.id)
+    # redirect_to @book_path(book.id)
   end
 
 
@@ -26,8 +26,8 @@ class BookCommentsController < ApplicationController
 
   #ログインユーザーと一致しないとアクセスさせない
   def is_matching_login_user
-    book = Book.find(params[:id])
-    user = book.user
+    comment = BookComment.find(params[:id])
+    user = comment.user
     unless user.id == current_user.id
       redirect_to books_path
     end
