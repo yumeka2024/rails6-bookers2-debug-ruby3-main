@@ -38,9 +38,10 @@
         <!--  < % end %>-->
         <!--</td>-->
 
-        <td>
+        <td id="comment_counter">
           <!--コメント機能-->
-          コメント数: <%= book.book_comments.count %>
+          <!--コメント数: < %= book.book_comments.count %>-->
+          <%= render "book_comments/counter", book: book %>
         </td>
       </tr>
     <% end %>
