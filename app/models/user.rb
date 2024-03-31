@@ -20,6 +20,8 @@ class User < ApplicationRecord
 
   # フォロワーを取得
   has_many :followers, through: :passive_relationships, source: :follower
+  
+  has_many :notifications, dependent: :destroy
 
   # 指定したユーザーをフォローする
   def follow(user)
