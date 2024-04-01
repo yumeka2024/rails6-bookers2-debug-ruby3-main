@@ -1,4 +1,6 @@
 class Book < ApplicationRecord
+  include Notifiable
+  
   belongs_to :user, optional:true
   has_many :favorites, dependent: :destroy
   has_many :book_comments, dependent: :destroy

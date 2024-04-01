@@ -1,4 +1,5 @@
 class Favorite < ApplicationRecord
+  include Notifiable
   
   belongs_to :user, optional:true
   belongs_to :book, optional:true

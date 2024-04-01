@@ -15,9 +15,9 @@ class Notification < ApplicationRecord
 
   def notifiable_path
     if notification.notifiable_type === "Book"
-      book_path(notifiable.id)
+      book_path(notifiable.id) # 投稿に対する通知の場合はBookの詳細ページへ
     else
-      user_path(notifiable.user.id)
+      user_path(notifiable.user.id) # いいねに対する通知の場合はいいねをしたUserの詳細ページへ
     end
   end
 
