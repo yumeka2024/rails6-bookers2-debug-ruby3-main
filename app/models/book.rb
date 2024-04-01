@@ -10,9 +10,10 @@ class Book < ApplicationRecord
   validates :body, presence:true, length:{maximum:200}
   
   after_create do
-    user.followers.each do |follower|
-      notifications.create(user_id: follower.id)
+    records = user.followers.map do |follower|
+      notifications.new(user_id: follower.id)
     end
+    Notification.import records
   end
 
   def favorited_by?(user)
