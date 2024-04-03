@@ -21,6 +21,7 @@ class User < ApplicationRecord
   # フォロワーを取得
   has_many :followers, through: :passive_relationships, source: :follower
   
+  # 通知機能
   has_many :notifications, dependent: :destroy
 
   # 指定したユーザーをフォローする
